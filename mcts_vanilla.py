@@ -3,7 +3,7 @@ from p2_t3 import Board
 from random import choice
 from math import sqrt, log, e
 
-num_nodes = 1000
+num_nodes = 100
 explore_faction = 2.
 
 
@@ -117,7 +117,7 @@ def rollout(board: Board, state):
     return state
 
 
-def backpropagate(node: MCTSNode | None, won: bool):
+def backpropagate(node: MCTSNode, won: bool):
     """ Navigates the tree from a leaf node to the root, updating the win and visit count of each node along the path.
 
     Args:
@@ -198,13 +198,6 @@ def think(board: Board, current_state):
         terminal_state = rollout(board, next_state)
         win = is_win(board, terminal_state, bot_identity)
         backpropagate(next_node, win)
-
-        # print("next node: ", best_unexpended_node, " state: ", state)
-
-        # child_node, state = expand_leaf(best_unexpended_node, state)
-
-        # Do MCTS - This is all you!
-        # ...
 
     # Return an action, typically the most frequently used action (from the root) or the action with the best
     # estimated win rate.
